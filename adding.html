@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Add</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" >
+    </script>
+  </head>
+  <body style="background-color:powderblue;">
+    <a href="/mains">mains</a>
+    <h3 style="color:red;">you can logout <a href="{{logout_url}}">here</a></h3>
+    <form class="" action="/adding" method="post">
+      <h3>Add a new Anagram</h3>
+      <input type="text" required id="anagram" name="anagram" placeholder="enter word">
+      <button type="submit" id="adding" name="adding">Add</button>
+    </form>
+
+    {% if error == True %}
+        {{message}}
+    {% endif %}
+
+    {% if success == True %}
+        {{message}}
+    {% endif %}
+
+    <script type="text/javascript">
+     $(document).ready(function(){
+        $('#adding').on('click', function(e){
+            regex = /^[a-zA-Z]+$/;
+            var adding_word = $('#anagram')
+            if(adding_word.val() == '' || !adding_word.val().match(regex)){
+              alert('only alphabets are allowed');
+              e.preventDefault();
+              return;
+            }
+        })
+     });
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,60 @@
+ <!DOCTYPE html>
+ <html lang="en" dir="ltr">
+   <head>
+     <meta charset="utf-8">
+     <title>mains</title>
+
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" >
+     </script>
+
+
+   </head>
+   <body style="background-color:powderblue;">
+     <h2 style="color:red;">add new anagram<a href="/adding">Add</a></h2>
+     <h2 style="color:red;">you can logout<a href="{{logout_url}}">here</a></h2>
+     <div class="">
+       <h3>Total Anagrams: {{anagrams}}</h3>
+       <h3>Total Words: {{words}}</h3>
+
+      <br>
+      <form action="/mains" method="post" enctype="multipart/form-data">
+        <input type="file" required name="file" accept="text/plain">
+        <button type="submit" name="searchButton" value="upload">Upload</button>
+      </form>
+
+
+       <form class="" action="/mains" method="post">
+         <input type="hidden" name="anagrams" value="{{anagrams}}">
+         <input type="hidden" name="words" value="{{words}}">
+         <h3>Search Anagram in system</h3>
+         <input type="text" name="search" id="searchWord" required placeholder="Search word">
+         <button type="submit" name="searchButton" value="search1" id="search">Search</button>
+         <button type="submit" name="searchButton" value="search2" id="search1">Search SubAnagrams</button>
+       </form>
+       {% if data %}
+          {% for x in data %}
+            {{loop.index}}. {{x}}
+            <br>
+          {% endfor %}
+       {% endif %}
+       {% if status %}
+          {{status}}
+       {% endif %}
+     </div>
+
+<script type="text/javascript">
+ $(document).ready(function(){
+    $('#search','#search1').on('click', function(e){
+        regex = /^[a-zA-Z]+$/;
+        var search_word = $('#searchWord')
+        if(search_word.val() == '' || !search_word.val().match(regex)){
+          alert('only alphabets are allowed');
+          e.preventDefault();
+          return;
+        }
+    })
+ });
+</script>
+
+   </body>
+ </html>
